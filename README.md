@@ -1,2 +1,2 @@
 # Inchoo_Alternate
-Sample rel=alternate hreflang extension from Inchoo blogpost
+Sample rel=alternate hreflang extension from Inchoo blogpost at http://inchoo.net/magento/implement-rel-alternate-links-in-magento/ (with $headblock -> $headBlock fixed) - just to make learning easier :-)
