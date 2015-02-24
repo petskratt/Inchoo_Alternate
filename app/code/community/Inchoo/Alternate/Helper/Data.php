@@ -2,6 +2,7 @@
 
 class Inchoo_Alternate_Helper_Data extends Mage_Core_Helper_Abstract
 {
+
     public function rewrittenProductUrl($productId, $categoryId, $storeId)
     {
         $coreUrl = Mage::getModel('core/url_rewrite');
@@ -13,6 +14,5 @@ class Inchoo_Alternate_Helper_Data extends Mage_Core_Helper_Abstract
         $coreUrl->loadByIdPath($idPath);
         return $coreUrl->getRequestPath();
     }
-
 
 }
