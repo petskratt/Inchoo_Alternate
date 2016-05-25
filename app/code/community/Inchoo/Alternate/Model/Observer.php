@@ -13,17 +13,23 @@ class Inchoo_Alternate_Model_Observer
 
         if ($headBlock) {
             foreach ($stores as $store) {
-                if ($product) {
-                    $category ? $categoryId = $category->getId() : $categoryId = null;
-                    $url = $store->getBaseUrl() . Mage::helper('inchoo_alternate')->rewrittenProductUrl($product->getId(), $categoryId, $store->getId());
-                } else {
-                    $url = $store->getUrl('', array(
-                                                    '_current' => true,
-                                                    '_use_rewrite' => true
-                                                ));
-                }
-                $storeCode = substr(Mage::getStoreConfig('general/locale/code', $store->getId()), 0, 2);
-                $headBlock->addLinkRel('alternate"' . ' hreflang="' . $storeCode, $url);
+				if ($product) {
+					$category ? $categoryId = $category->getId() : $categoryId = null;
+					$url = $store->getBaseUrl() . Mage::helper('inchoo_alternate')->rewrittenProductUrl($product->getId(), $categoryId, $store->getId());
+				} elseif($category) {
+					$url = $store->getBaseUrl() . Mage::helper('inchoo_alternate')->rewrittenCategoryUrl($category->getId(), $store->getId());
+				} else {
+					$url = $store->getUrl('', array(
+                                                '_current' => true,
+                                                '_use_rewrite' => true
+                                            ));
+					
+				}
+				if((strpos($url, '?') !== false)){
+					$url = substr($url, 0, strrpos($url, "?"));
+				}
+				$storeCode = Mage::getStoreConfig('general/locale/code', $store->getId());
+				$headBlock->addLinkRel('alternate"' . ' hreflang="' . $storeCode, $url);
             }
         }
         return $this;
